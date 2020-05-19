@@ -1,7 +1,7 @@
 import React from "react";
 import TeamList from "./Components/TeamList";
 import Header from "./Components/Header";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
 
 function App() {
   return (
@@ -11,8 +11,8 @@ function App() {
       }}
       className="App"
     >
-      <Header></Header>
-      <TeamList></TeamList>
+      <Header />
+      <TeamList />
     </div>
   );
 }

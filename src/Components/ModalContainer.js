@@ -1,42 +1,23 @@
-import Modal from "react-modal";
-import React, { useState } from "react";
-import { Button } from "react-bootstrap";
-import PlayerList from "../Components/PlayerList";
+import React from 'react';
+import { Button, Modal } from 'semantic-ui-react';
+import PlayerList from './PlayerList';
 
-const ModalContainer = props => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  return (
-    <div>
-      <Button
-        variant="light"
-        size="lg"
-        block
-        onClick={() => setModalIsOpen(true)}
-      >
-        {props.teamName}
-      </Button>
-
+class ModalContainer extends React.Component {
+  render() {
+    const { team, open, close } = this.props;
+    return team && (
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        style={{
-          overlay: {
-            background: "grey",
-            content: "orange"
-          }
-        }}
+        size='small'
+        open={open}
       >
-        <h1>
-          <center>{props.teamName}</center>
-        </h1>
-        <PlayerList id={props.teamId}></PlayerList>
-        <Button variant="warning" onClick={() => setModalIsOpen(false)}>
+        <Modal.Header>{team.name}</Modal.Header>
+        <PlayerList id={team.id} />
+        <Button onClick={() => close()}>
           Close
         </Button>
       </Modal>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default ModalContainer;

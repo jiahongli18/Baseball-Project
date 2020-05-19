@@ -1,37 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
+
+import { Dropdown, Header } from "semantic-ui-react";
+
 import "../styles/teamlist.css";
-import PlayerModalContainer from "../Components/PlayerModalContainer";
 
 export default class PlayerList extends React.Component {
-  state = {
-    roster: []
-  };
+  constructor() {
+    super();
 
-  componentDidMount() {
-    axios.get(`https://statsapi.mlb.com/api/v1/teams/141/roster`).then(res => {
-      this.setState({
-        roster: res.data["roster"]
-      });
-    });
+    this.state = {
+      roster: []
+    }
+  }
+
+  async componentDidMount() {
+    await this.getData();
+  }
+
+  async getData() {
+    const { id } = this.props;
+    const res = await axios.get(`https://statsapi.mlb.com/api/v1/teams/${id}/roster`);
+    const { roster } = res.data;
+    this.setState({ roster });
   }
 
   render() {
+    const rosterOptions = [];
+    // Header
+    // Dropdown
+    // div that is only shown if something is selected in the dropdown
     return (
       <div className="body">
-        <h1>
-          <center>Players:</center>{" "}
-        </h1>
-        <ul>
-          {this.state.roster.map(player => (
-            <li>
-              <PlayerModalContainer
-                playerName={player["person"].fullName}
-                playerId={player["person"].id}
-              />
-            </li>
-          ))}
-        </ul>
+        <Header>Players:</Header>
       </div>
     );
   }
